@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In</title>
+    <link rel="stylesheet" href="log_in.css">
+
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome Back</h1>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="login-btn" onclick="window.location.href='home_log.html'">Log In</button>
+                <button type="submit" class="login-admin-btn" onclick="window.location.href='admin/admin_users.html'">Admin Log In</button>
+                <button type="button" class="signup-redirect" onclick="window.location.href='sign_up.html'">Need an account? Sign Up</button>
+                <button type="button" class="home" onclick="window.location.href='home.html'">Back home</button>
+            </div>
+            <div class="forgot-password">
+                <a href="reset_password.html">Forgot your password?</a>
+            </div>
+        </form>
+    </div>
+    <script>
+    </script>
+</body>
+</html>

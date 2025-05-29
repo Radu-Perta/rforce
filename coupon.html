@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Coupons - R Force Auto Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .coupons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .coupon {
+            background-color: white;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .coupon:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .discount {
+            font-size: 28px;
+            font-weight: bold;
+            color: #A020F0;
+            margin: 10px 0;
+        }
+
+        .code {
+            background-color: #f8f8f8;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .code:hover {
+            background-color: #f0f0f0;
+        }
+
+        .code::after {
+            content: "Click to copy";
+            display: block;
+            font-size: 12px;
+            font-weight: normal;
+            margin-top: 5px;
+            color: #666;
+        }
+
+        .copied-tooltip {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .instructions {
+            font-size: 14px;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        .no-coupons {
+            text-align: center;
+            padding: 40px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            grid-column: 1 / -1;
+        }
+
+        .no-coupons p {
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .coupons-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar_log.html"></div>
+
+    <div class="container">
+        <h1 class="page-title">Available Coupons</h1>
+        <p style="text-align:center; margin-bottom:30px; padding-top: 10vh; font-size: 25px; color:#A020F0;">Use these coupons to save on your next service.Just insert the code when u schedule a new service.</p>
+        
+        <div class="coupons-container" id="coupons-container">
+            
+        </div>
+    </div>
+
+    <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+            // Fetch the navbar.html file
+            fetch('navbar_log.html')
+                .then(response => response.text())
+                .then(data => {
+                    // Insert the navbar HTML
+                    document.getElementById('navbar_log.html').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCoupons();
+            
+            // Event delegation for copying coupon codes
+            document.getElementById('coupons-container').addEventListener('click', function(e) {
+                if (e.target.classList.contains('code')) {
+                    const couponCode = e.target.textContent.split('Click to copy')[0].trim();
+                    const tooltip = e.target.querySelector('.copied-tooltip');
+                    
+                    // Copy to clipboard
+                    navigator.clipboard.writeText(couponCode)
+                        .then(() => {
+                            // Show copied tooltip
+                            tooltip.style.opacity = '1';
+                            
+                            // Hide tooltip after 2 seconds
+                            setTimeout(() => {
+                                tooltip.style.opacity = '0';
+                            }, 2000);
+                        })
+                        .catch(err => {
+                            console.error('Failed to copy: ', err);
+                            alert('Failed to copy. Please try manually selecting and copying the code.');
+                        });
+                }
+            });
+        });
+        
+        function loadCoupons() {
+            const couponsContainer = document.getElementById('coupons-container');
+            const coupons = getCoupons();
+            
+            // Clear container
+            couponsContainer.innerHTML = '';
+            
+            if (coupons.length === 0) {
+                // Show no coupons message
+                couponsContainer.innerHTML = `
+                    <div class="no-coupons">
+                        <h2>No Coupons Available</h2>
+                        <p>Check back soon for special discounts and promotions!</p>
+                    </div>
+                `;
+            } else {
+                // Add each coupon
+                coupons.forEach(coupon => {
+                    const couponElement = document.createElement('div');
+                    couponElement.className = 'coupon';
+                    
+                    couponElement.innerHTML = `
+                        <div class="discount">${coupon.discount}</div>
+                        <div class="code">
+                            ${coupon.code}
+                            <span class="copied-tooltip">Copied!</span>
+                        </div>
+                        <div class="instructions">Present this code when booking your service</div>
+                    `;
+                    
+                    couponsContainer.appendChild(couponElement);
+                });
+            }
+        }
+        
+        function getCoupons() {
+            return JSON.parse(localStorage.getItem('adminCoupons')) || [];
+        }
+    </script>
+</body>
+</html>

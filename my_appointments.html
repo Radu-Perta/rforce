@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments | R Force Auto Service</title>
+    <link rel="stylesheet" href="oilchange.css">
+    <style>
+        /* Basic container styles */
+        .appointments-container {
+            max-width: 1000px;
+            margin: 150px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .appointments-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .appointments-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .appointments-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .appointments-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar_log.html"></div>
+    
+    <div class="appointments-container">
+        <div class="appointments-header">
+            <h1>My Appointments</h1>
+            <p>View your upcoming service appointments</p>
+        </div>
+        
+        <div class="appointments-content">
+            <p>No upcoming appointments</p>
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch the navbar
+        fetch('navbar_log.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar_log.html').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    });
+    </script>
+</body>
+</html>

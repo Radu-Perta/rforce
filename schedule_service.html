@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Service | R Force Auto Service</title>
+    <link rel="stylesheet" href="s.css"> 
+
+</head>
+<body>
+    <div id="navbar_log.html"></div>
+    <div class="container">
+        <h1>Schedule Your Service Appointment</h1>
+        
+        <form id="scheduleForm">
+            <div class="form-section">
+                <h2>Personal Information</h2>
+                <label for="name" class="required">Full Name</label>
+                <input type="text" id="name" required placeholder="Enter your full name">
+                
+                <label for="email" class="required">Email Address</label>
+                <input type="email" id="email" required placeholder="Enter your email address">
+                
+                <label for="phone" class="required">Phone Number</label>
+                <input type="tel" id="phone" required placeholder="Enter your phone number">
+            </div>
+            
+            <div class="form-section">
+                <h2>Vehicle Information</h2>
+                <label for="vin">Vehicle VIN (optional)</label>
+                <input type="text" id="vin" placeholder="Enter your 17-character VIN number">
+            </div>
+            
+            <div class="form-section">
+                <h2>Service Selection</h2>
+                <p>Select the service(s) you need:</p>
+                <div class="service-grid">
+                    <label class="service-option">
+                        <input type="checkbox" name="service" value="oil-change" checked> Oil Change
+                    </label>
+                    <label class="service-option">
+                        <input type="checkbox" name="service" value="brake-service"> Brake Service
+                    </label>
+                    <label class="service-option">
+                        <input type="checkbox" name="service" value="tire-replacement"> Tire Replacement
+                    </label>
+                    <label class="service-option">
+                        <input type="checkbox" name="service" value="engine-diagnostics"> Engine Diagnostics
+                    </label>
+                    <label class="service-option">
+                        <input type="checkbox" name="service" value="ac-service"> AC/Heating Service
+                    </label>
+                    <label class="service-option">
+                        <input type="checkbox" name="service" value="timing-chain"> Timing Chain
+                    </label>
+                    <label class="service-option">
+                        <input type="checkbox" name="service" value="timing-belt"> Timing Belt
+                    </label>
+                    <label class="service-option">
+                        <input type="checkbox" name="service" value="other"> Other Service
+                    </label>
+                </div>
+                
+                <label for="additional-info">Additional Information (optional)</label>
+                <textarea id="additional-info" rows="3" placeholder="Please provide any additional details about your service needs"></textarea>
+            </div>
+            
+            <div class="form-section">
+                <h2>Appointment Date & Time</h2>
+                <div class="date-selector">
+                    <div class="date-input">
+                        <label for="appointment-date" class="required">Preferred Date</label>
+                        <input type="date" id="appointment-date" required min="">
+                    </div>
+                    <div class="time-input">
+                        <label for="appointment-time" class="required">Preferred Time</label>
+                        <select id="appointment-time" required>
+                            <option value="">Select Time</option>
+                            <option value="9:00 AM">9:00 AM</option>
+                            <option value="10:00 AM">10:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="1:00 PM">1:00 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="3:00 PM">3:00 PM</option>
+                            <option value="4:00 PM">4:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="coupon-section">
+                <h2>Have a Coupon?</h2>
+                <div class="coupon-input">
+                    <input type="text" id="coupon-code" placeholder="Enter coupon code">
+                    <button type="button" class="coupon-apply" id="apply-coupon">Apply</button>
+                </div>
+                <div class="coupon-message" id="coupon-message"></div>
+                <div class="applied-coupon" id="applied-coupon" style="display:none">
+                    <div>
+                        Applied: <span id="applied-coupon-code"></span> - <span id="applied-coupon-discount"></span>
+                    </div>
+                    <button type="button" class="remove-coupon" id="remove-coupon">Remove</button>
+                </div>
+                <input type="hidden" id="applied-coupon-value">
+            </div>
+            
+            <button type="submit" class="submit-button">Schedule Appointment</button>
+        </form>
+        
+        <div class="confirmation" id="confirmation">
+            <h2>Thank You for Scheduling!</h2>
+            <p>Your appointment request has been submitted and is pending confirmation.</p>
+            <p>We will contact you shortly to confirm your appointment.</p>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch the navbar.html file
+            fetch('navbar_log.html')
+                .then(response => response.text())
+                .then(data => {
+                    // Insert the navbar HTML
+                    document.getElementById('navbar_log.html').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set minimum date to today
+            const today = new Date();
+            const dateInput = document.getElementById('appointment-date');
+            dateInput.min = today.toISOString().split('T')[0];
+            
+            // Default to tomorrow for the appointment date
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            dateInput.value = tomorrow.toISOString().split('T')[0];
+            
+            // Coupon functionality
+            const couponInput = document.getElementById('coupon-code');
+            const applyButton = document.getElementById('apply-coupon');
+            const couponMessage = document.getElementById('coupon-message');
+            const appliedCouponDiv = document.getElementById('applied-coupon');
+            const appliedCouponCode = document.getElementById('applied-coupon-code');
+            const appliedCouponDiscount = document.getElementById('applied-coupon-discount');
+            const appliedCouponInput = document.getElementById('applied-coupon-value');
+            const removeCouponButton = document.getElementById('remove-coupon');
+            
+            applyButton.addEventListener('click', function() {
+                const code = couponInput.value.trim();
+                
+                if (!code) {
+                    couponMessage.textContent = "Please enter a coupon code.";
+                    couponMessage.className = "coupon-message coupon-invalid";
+                    return;
+                }
+                
+                // Get coupons from localStorage
+                const coupons = JSON.parse(localStorage.getItem('adminCoupons')) || [];
+                const coupon = coupons.find(c => c.code.toLowerCase() === code.toLowerCase());
+                
+                if (coupon) {
+                    // Valid coupon
+                    couponMessage.textContent = "Coupon applied successfully!";
+                    couponMessage.className = "coupon-message coupon-valid";
+                    
+                    // Show applied coupon
+                    appliedCouponCode.textContent = coupon.code;
+                    appliedCouponDiscount.textContent = coupon.discount;
+                    appliedCouponDiv.style.display = "flex";
+                    
+                    // Store coupon in form data
+                    appliedCouponInput.value = JSON.stringify(coupon);
+                    
+                    // Clear input
+                    couponInput.value = "";
+                } else {
+                    // Invalid coupon
+                    couponMessage.textContent = "Invalid coupon code. Please try again.";
+                    couponMessage.className = "coupon-message coupon-invalid";
+                    appliedCouponDiv.style.display = "none";
+                    appliedCouponInput.value = "";
+                }
+            });
+            
+            removeCouponButton.addEventListener('click', function() {
+                appliedCouponDiv.style.display = "none";
+                appliedCouponInput.value = "";
+                couponMessage.textContent = "Coupon removed.";
+                couponMessage.className = "coupon-message";
+            });
+            
+            // Form submission
+            const form = document.getElementById('scheduleForm');
+            const confirmation = document.getElementById('confirmation');
+            
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Validate service selection
+                const serviceCheckboxes = document.querySelectorAll('input[name="service"]:checked');
+                if (serviceCheckboxes.length === 0) {
+                    alert('Please select at least one service type.');
+                    return;
+                }
+                
+                // Get selected services
+                let selectedServices = [];
+                serviceCheckboxes.forEach(checkbox => {
+                    selectedServices.push(checkbox.value);
+                });
+                
+                // Get appointment date and time
+                const appointmentDate = document.getElementById('appointment-date').value;
+                const appointmentTime = document.getElementById('appointment-time').value;
+                
+                // Create appointment data
+                const appointmentData = {
+                    id: Date.now().toString(),
+                    status: 'pending',
+                    client: {
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value
+                    },
+                    vin: document.getElementById('vin').value,
+                    services: selectedServices,
+                    date: appointmentDate,
+                    time: appointmentTime,
+                    additionalInfo: document.getElementById('additional-info').value,
+                    coupon: appliedCouponInput.value ? JSON.parse(appliedCouponInput.value) : null,
+                    submittedAt: new Date().toISOString()
+                };
+                
+                // Save appointment to localStorage
+                const appointments = JSON.parse(localStorage.getItem('pendingAppointments')) || [];
+                appointments.push(appointmentData);
+                localStorage.setItem('pendingAppointments', JSON.stringify(appointments));
+                
+                // Show confirmation message
+                form.style.display = 'none';
+                confirmation.style.display = 'block';
+            });
+        });
+    </script>
+</body>
+</html>

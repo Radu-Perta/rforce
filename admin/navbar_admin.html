@@ -1,0 +1,127 @@
+<!-- Navbar for R Force Admin -->
+<div style="background-color: #333; color: white; padding: 10px 0;">
+    <div style="display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <!-- Brand -->
+        <div>
+            <a href="admin_dash.html" style="color: white; text-decoration: none; font-size: 20px; font-weight: bold;">R Force Admin</a>
+        </div>
+        
+        <!-- Navigation Links -->
+        <div>
+            <ul style="list-style: none; margin: 0; padding: 0; display: flex;">
+                <li style="margin-right: 10px;">
+                    <a href="admin_users.html" id="users-link" style="color: white; text-decoration: none; padding: 10px 15px; display: block; border-radius: 4px;">Users</a>
+                </li>
+                <li style="margin-right: 10px;">
+                    <a href="appoiments.php" id="appointments-link" style="color: white; text-decoration: none; padding: 10px 15px; display: block; border-radius: 4px;">Appointments</a>
+                </li>
+                <li style="margin-right: 10px;">
+                    <a href="admin_ratings.html" id="ratings-link" style="color: white; text-decoration: none; padding: 10px 15px; display: block; border-radius: 4px;">Ratings</a>
+                </li>
+                <li>
+                    <a href="admin_coupons.html" id="coupons-link" style="color: white; text-decoration: none; padding: 10px 15px; display: block; border-radius: 4px;">Coupons</a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Logout Link -->
+        <div>
+            <a href="../index.html" style="color: white; text-decoration: none; padding: 10px 15px; display: block;">Log out</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Set active link based on current page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get current page URL
+        const currentPage = window.location.pathname;
+        
+        // Check which page we're on and highlight the appropriate link
+        if (currentPage.includes('admin_users.html')) {
+            document.getElementById('users-link').style.backgroundColor = '#A020F0';
+        } else if (currentPage.includes('admin_appointments.html')) {
+            document.getElementById('appointments-link').style.backgroundColor = '#A020F0';
+        } else if (currentPage.includes('admin_ratings.html')) {
+            document.getElementById('ratings-link').style.backgroundColor = '#A020F0';
+        } else if (currentPage.includes('admin_coupons.html')) {
+            document.getElementById('coupons-link').style.backgroundColor = '#A020F0';
+        }
+    });
+</script>
+
+<style>
+    /* Navbar Styles */
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+}
+
+.navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #555;
+}
+
+.navbar a.active {
+    background-color: #A020F0;
+}
+
+/* Navbar Responsive Collapse Styles */
+.navbar-toggler {
+    border-color: rgba(255,255,255,0.1);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Navbar Item Spacing and Layout */
+.navbar .navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .nav-item {
+    margin: 0 5px;
+}
+
+.navbar .nav-link {
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+.navbar .nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Logout Link Styling */
+.navbar .navbar-nav.ms-auto .nav-link {
+    color: white;
+}
+
+.navbar .navbar-nav.ms-auto .nav-link:hover {
+    background-color: rgba(255,0,0,0.1);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .navbar .nav-link {
+        text-align: left;
+    }
+    
+    .navbar .navbar-collapse {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}
+</style>

@@ -1,0 +1,119 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    padding: 35px;
+    width: 350px;
+    border-top: 5px solid #A020F0;
+}
+h1 {
+    text-align: center;
+    color: #2e2e2e;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #444;
+    font-weight: 500;
+}
+input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 15px;
+    box-sizing: border-box;
+    background-color: #fafafa;
+    transition: all 0.3s ease;
+}
+input:focus {
+    outline: none;
+    border-color: #A020F0;
+    box-shadow: 0 0 5px rgba(160, 32, 240, 0.3);
+    background-color: #fff;
+}
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 30px;
+}
+button {
+    padding: 14px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.login-btn {
+    background-color: #A020F0;
+    color: white;
+}
+
+.login-btn:hover {
+    background-color: #8010D0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(160, 32, 240, 0.3);
+}
+
+.home{
+    background-color: #A020F0;
+    color: white;
+}
+
+.home:hover{
+    background-color: #8010D0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(160, 32, 240, 0.3);
+}
+
+
+.login-admin-btn {
+    background-color: #A020F0;
+    color: white;
+}
+
+.login-admin-btn:hover {
+    background-color: #8010D0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(160, 32, 240, 0.3);
+}
+
+.signup-redirect {
+    background-color: #f0f0f0;
+    color: #444;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+}
+.signup-redirect:hover {
+    background-color: #e5e5e5;
+}
+.forgot-password {
+    text-align: center;
+    margin-top: 20px;
+}
+.forgot-password a {
+    color: #A020F0;
+    text-decoration: none;
+    font-size: 14px;
+}
+.forgot-password a:hover {
+    text-decoration: underline;
+}

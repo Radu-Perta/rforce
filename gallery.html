@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - R Force Auto Service</title>
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+
+    <div id="navbar.html"></div>
+
+    <section class="gallery-section">
+        <div class="gallery-container">
+            <div class="section-title">
+                <h2>Photo Gallery</h2>
+            </div>
+
+            <div class="gallery-grid">
+                
+                <div class="gallery-item">
+                    <img src="https://welshautomotive.com/wp-content/uploads/2024/01/aee278d3-23aa-4aad-862c-96284e59.webp" alt="Oil Change Service">
+                    <div class="gallery-caption">
+                        <h3>Oil Change Service</h3>
+                        <p>Professional oil change with premium filters and lubricants</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://s19528.pcdn.co/wp-content/uploads/2024/03/Brake-Job.jpg" alt="Brake Inspection">
+                    <div class="gallery-caption">
+                        <h3>Brake Service</h3>
+                        <p>Comprehensive brake system inspection and repair</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://countryvehicles.co.uk/wp-content/uploads/2021/06/What-Does-a-Car-Diagnostic-Test-Tell-You-.jpg" alt="Engine Diagnostics">
+                    <div class="gallery-caption">
+                        <h3>Engine Diagnostics</h3>
+                        <p>Advanced computer diagnostics for precise troubleshooting</p>
+                    </div>
+                </div>
+                
+        
+                <div class="gallery-item">
+                    <img src="https://media.fourdoor.com/fourdoor-images/package-pdp-images/718-x-428/detailed-ac-service.jpg" alt="AC">
+                    <div class="gallery-caption">
+                        <h3>Ac Service</h3>
+                        <p>The best solution for your comfort</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://www.motorbiscuit.com/wp-content/uploads/2021/08/car-engine-timing-chain.jpeg" alt="timing chain">
+                    <div class="gallery-caption">
+                        <h3>Timing chain replacement</h3>
+                        <p>Advanced and safe timing chain replacement</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://www.germanautoltd.com/portals/0/IMG_0189at0_3x.png" alt="Technician Team">
+                    <div class="gallery-caption">
+                        <h3>Our Technicians</h3>
+                        <p>Skilled professionals with years of experience</p>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch the navbar.html file
+            fetch('navbar.html')
+                .then(response => response.text())
+                .then(data => {
+                    // Insert the navbar HTML
+                    document.getElementById('navbar.html').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+        });
+    </script>
+</body>
+</html>

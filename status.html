@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status of Service | R Force Auto Service</title>
+    <style>
+        
+        .status-container {
+            max-width: 800px;
+            margin: 150px auto 50px;
+            padding: 0 20px;
+        }
+        
+        .status-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .status-header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .status-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .status-content {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .search-form {
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .search-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .search-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            padding: 15px 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .search-button:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .search-note {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .status-content {
+                padding: 25px;
+            }
+            
+            .search-group {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                width: 100%;
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+            
+            .search-button {
+                width: 100%;
+                border-radius: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar_log.html"></div>
+    
+    <div class="status-container">
+        <div class="status-header">
+            <h1>Status of Service</h1>
+            <p>Check the current status of your vehicle service by entering your service ID</p>
+        </div>
+        
+        <div class="status-content">
+            <form class="search-form" id="status-search-form">
+                <div class="search-group">
+                    <input type="text" class="search-input" id="service-id" placeholder="Enter your Service ID (e.g., RF-123456)" required>
+                    <button type="submit" class="search-button">Check Status</button>
+                </div>
+                <p class="search-note">Your Service ID was provided in the confirmation email when you scheduled your service</p>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch the navbar
+        fetch('navbar_log.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar_log.html').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+    });
+    </script>
+</body>
+</html>

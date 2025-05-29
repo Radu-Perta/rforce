@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R Force Auto Service</title>
+
+    <link rel="stylesheet" href="home.css">
+
+
+</head>
+<body> 
+
+
+
+    <div id="navbar_log.html"></div>
+ 
+    <section class="hero">
+        <div class="slider">
+            <div class="slide slide-1 active">
+                <div class="slide-content">
+                    <h1>Welcome to R Force Auto Service</h1>
+                    <p>Professional auto care services designed to keep your vehicle running at its best.</p>
+                </div>
+            </div>
+            <div class="slide slide-2">
+                <div class="slide-content">
+                    <h1>Expert Auto Maintenance</h1>
+                    <p>Join thousands of satisfied customers who trust us with their vehicles.</p>
+                </div>
+            </div>
+            <div class="slide slide-3">
+                <div class="slide-content">
+                    <h1>Complete Car Care Solutions</h1>
+                    <p>From routine maintenance to complex repairs, we've got your vehicle covered.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slide-indicators">
+            <div class="indicator active" data-slide="0"></div>
+            <div class="indicator" data-slide="1"></div>
+            <div class="indicator" data-slide="2"></div>
+        </div>
+    </section>
+
+
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch the navbar.html file
+            fetch('navbar_log.html')
+                .then(response => response.text())
+                .then(data => {
+                    // Insert the navbar HTML
+                    document.getElementById('navbar_log.html').innerHTML = data;
+                })
+                .catch(error => console.error('Error loading navbar:', error));
+        });
+
+
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Slider functionality
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const indicators = document.querySelectorAll('.indicator');
+            const totalSlides = slides.length;
+            
+            // Make sure first slide is active on load
+            if (slides.length > 0) {
+                slides[0].classList.add('active');
+                if (indicators.length > 0) {
+                    indicators[0].classList.add('active');
+                }
+            }
+            
+            // Auto slide change (1 second)
+            const autoSlideInterval = 7000;
+            let slideInterval;
+            
+            // Function to start the timer
+            function startSlideTimer() {
+                // Clear any existing interval first to prevent duplicates
+                clearInterval(slideInterval);
+                // Create a new interval
+                slideInterval = setInterval(function() {
+                    nextSlide();
+                }, autoSlideInterval);
+            }
+            
+            // Start the timer initially
+            startSlideTimer();
+            
+            function nextSlide() {
+                goToSlide((currentSlide + 1) % totalSlides);
+            }
+            
+            function prevSlide() {
+                goToSlide((currentSlide - 1 + totalSlides) % totalSlides);
+            }
+            
+            function goToSlide(slideIndex) {
+                // Only proceed if we have slides
+                if (slides.length === 0) return;
+                
+                // Remove active classes
+                slides[currentSlide].classList.remove('active');
+                if (indicators.length > currentSlide) {
+                    indicators[currentSlide].classList.remove('active');
+                }
+                
+                // Set new slide
+                currentSlide = slideIndex;
+                
+                // Add active classes
+                slides[currentSlide].classList.add('active');
+                if (indicators.length > currentSlide) {
+                    indicators[currentSlide].classList.add('active');
+                }
+                
+                // Reset interval
+                startSlideTimer();
+            }
+            
+            // Add click events to indicators
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+            });
+            
+            // Add prev/next buttons event listeners if they exist
+            const prevButton = document.querySelector('.prev-button');
+            const nextButton = document.querySelector('.next-button');
+            
+            if (prevButton) {
+                prevButton.addEventListener('click', prevSlide);
+            }
+            
+            if (nextButton) {
+                nextButton.addEventListener('click', nextSlide);
+            }
+            
+            // Add hover pause functionality
+            const slider = document.querySelector('.slider');
+            if (slider) {
+                slider.addEventListener('mouseenter', () => {
+                    clearInterval(slideInterval);
+                });
+                
+                slider.addEventListener('mouseleave', () => {
+                    startSlideTimer();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

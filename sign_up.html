@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="sign_up.css">
+   
+</head>
+<body>
+    <div class="container">
+        <h1>Create Account</h1>
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="fullname">Full Name</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label form="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <div class="buttons">
+                <button type="submit" class="signup-btn">Sign Up</button>
+                <button type="button" class="login-redirect" onclick="window.location.href='log_in.html'">Already have an account? Log In</button>
+                <button type="button" class="home" onclick="window.location.href='home.html'">Back home</button>
+            </div>
+            
+        </form>
+        <p class="footer-text">By signing up, you agree to our Terms of Service and Privacy Policy</p>
+    </div>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (password !== confirmPassword) {
+                alert("Passwords don't match!");
+                return;
+            }
+            
+            // In a real application, you would send the form data to a server here
+            alert('Account created successfully! Redirecting to login page...');
+            setTimeout(() => {
+                window.location.href = 'log_in.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
